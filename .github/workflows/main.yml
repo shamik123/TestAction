@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Hello world action step
         id: hello
-        uses: Actions/ShamikStudio@v1
+        uses: shamik123/Studio@ShamikStudio
         with:
           who-to-greet: 'Mona the Octocata'
       # Use the output from the `hello` step
