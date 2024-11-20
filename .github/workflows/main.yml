@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Studio version check
         id: version
-        uses: shamik123/ShamikAction@shamiktestaction34
+        uses: shamik123/ShamikAction@shamiktestaction36
         with:
           studio-cli-command: 'studio-cli --version'
       - name: Show the output message
