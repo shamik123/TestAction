@@ -6,10 +6,12 @@ jobs:
     name: Runs Studio cli
     steps:
       - name: Hello world action step
-        id: hello
+        id: command
         uses: shamik123/ShamikAction@shamiktestactionv22
         with:
           studio-cli-command: 'studio-cli --version'
-      # Use the output from the `hello` step
-      - name: Get the output time
-        run: echo "The time was ${{ steps.hello.outputs.time }}"
+      - name: Show the output message
+        run: echo "Output from command ${{ steps.command.outputs.message }}"
+
+
+        
