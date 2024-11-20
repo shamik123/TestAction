@@ -19,7 +19,7 @@ jobs:
       - name: reserving virtual target
         id: virtual
         uses: shamik123/ShamikAction@shamiktestactionv42
-        Y_USER: "shamik.saha@windriver.com"
+          MY_USER: "shamik.saha@windriver.com"
           MY_STUDIO: "https://feo-demo.wrstudio.cloud/"
           MY_PW: ${{ secrets.MY_PW }}
         with:
