@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Hello world action step
         id: hello
-        uses: shamik123/ShamikAction@shamiktestactionv11
+        uses: shamik123/ShamikAction@shamiktestactionv12
         with:
           studio-cli-command: 'studio-cli --version'
       # Use the output from the `hello` step
