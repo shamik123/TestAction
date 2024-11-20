@@ -14,7 +14,7 @@ jobs:
         run: echo "Output from command ${{ steps.version.outputs.message }}"
       - name: reserving virtual target
         id: virtual
-        uses: shamik123/ShamikAction@shamiktestaction34
+        uses: shamik123/ShamikAction@shamiktestaction36
         with:
           studio-cli-command: 'studio-cli vlab virtual reserve --id dcb2335c-a923-4605-a642-5cecff88e450 --hours 1 --var artifact_path=workspace-se/builds/michael-foglia/zcu_102_TEST/2403/vip -a'
       - name: Show the output message
