@@ -19,6 +19,9 @@ jobs:
       - name: reserving virtual target
         id: virtual
         uses: shamik123/ShamikAction@shamiktestactionv42
+        Y_USER: "shamik.saha@windriver.com"
+          MY_STUDIO: "https://feo-demo.wrstudio.cloud/"
+          MY_PW: ${{ secrets.MY_PW }}
         with:
           studio-cli-command: 'studio-cli vlab virtual reserve --id dcb2335c-a923-4605-a642-5cecff88e450 --hours 1 --var artifact_path=workspace-se/builds/michael-foglia/zcu_102_TEST/2403/vip -a'
       - name: Show the output message
