@@ -28,7 +28,7 @@ jobs:
       - name: Show the output message
         run: echo "Output from command ${{ steps.virtual.outputs.message }}"
       - name: Debug reservation output
-        run: echo "Raw output: ${{ steps.virtual.outputs.message }}"
+        run: echo "Raw output:${{ steps.virtual.outputs.message }}"
       - name: Extract reservation ID
         id: extract_id
         run: |
