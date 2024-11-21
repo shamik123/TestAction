@@ -28,12 +28,14 @@ jobs:
       - name: Show the output message
         run: echo "Output from command ${{ steps.virtual.outputs.message }}"
       - name: Extract reservation ID
-        id: extract_id
         run: |
           echo "Parsing ID from virtual reservation output..."
           
           # Isolate the JSON portion
           json_output=$(echo '${{ steps.virtual.outputs.message }}' | grep -o '{.*}' | sed 's/\\\"/\"/g')
+          
+          # Debug the extracted JSON
+          echo "Extracted JSON: $json_output"
           
           # Check if valid JSON was extracted
           if [ -z "$json_output" ]; then
@@ -41,8 +43,11 @@ jobs:
             exit 1
           fi
           
-          # Parse the ID from the JSON
-          id=$(echo "$json_output" | jq -r '.data.data.id')
+          # Attempt to parse the ID
+          id=$(echo "$json_output" | jq -r '.data.data.id // empty')
+          
+          # Debug the extracted ID
+          echo "Extracted ID: $id"
           
           # Validate the extracted ID
           if [ -z "$id" ]; then
@@ -50,8 +55,9 @@ jobs:
             exit 1
           fi
           
-          echo "Extracted reservation ID: $id"
+          # Save to environment
           echo "reservation_id=$id" >> $GITHUB_ENV
+
 
 
       
