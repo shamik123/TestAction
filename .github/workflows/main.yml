@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Studio version check
         id: version
-        uses: shamik123/ShamikAction@shamiktestaction44
+        uses: shamik123/ShamikAction@shamiktestaction48
         env:
           MY_USER: "shamik.saha@windriver.com"
           MY_STUDIO: "https://feo-demo.wrstudio.cloud/"
@@ -18,7 +18,7 @@ jobs:
         run: echo "Output from command ${{ steps.version.outputs.message }}"
       - name: reserving virtual target
         id: virtual
-        uses: shamik123/ShamikAction@shamiktestaction44
+        uses: shamik123/ShamikAction@shamiktestaction48
         env:
           MY_USER: "shamik.saha@windriver.com"
           MY_STUDIO: "https://feo-demo.wrstudio.cloud/"
