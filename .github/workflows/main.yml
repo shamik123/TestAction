@@ -4,18 +4,11 @@ jobs:
   hello_world_job:
     runs-on: self-hosted
     name: Runs Studio cli
+    env: # Environment variables at the job level
+      MY_USER: "shamik.saha@windriver.com"
+      MY_STUDIO: "https://feo-demo.wrstudio.cloud/"
+      MY_PW: ${{ secrets.MY_PW }}
     steps:
-      - name: Studio version check
-        id: version
-        uses: shamik123/ShamikAction@shamiktestaction48
-        env:
-          MY_USER: "shamik.saha@windriver.com"
-          MY_STUDIO: "https://feo-demo.wrstudio.cloud/"
-          MY_PW: ${{ secrets.MY_PW }}
-        with:
-          studio-cli-command: 'studio-cli --version'
-      - name: Show the output message
-        run: echo "Output from command ${{ steps.version.outputs.message }}"
       - name: reserving virtual target
         id: virtual
         uses: shamik123/ShamikAction@shamiktestaction48
