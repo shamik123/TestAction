@@ -27,65 +27,9 @@ jobs:
           studio-cli-command: 'studio-cli vlab virtual reserve --id dcb2335c-a923-4605-a642-5cecff88e450 --hours 1 --var artifact_path=workspace-se/builds/michael-foglia/zcu_102_TEST/2403/vip -a'
       - name: Show the output message
         run: echo "Output from command ${{ steps.virtual.outputs.message }}"
-      - name: Parse Reservation ID
-        shell: bash
-        env:
-          GITHUB_ENV: $GITHUB_ENV
-          output: |
-            Reserving target: dcb2335c-a923-4605-a642-5cecff88e450
-            {
-              "data": {
-                "$statusCode": 200,
-                "data": {
-                  "createdBy": "shamik.saha@windriver.com",
-                  "createdDate": "2024-11-21T18:15:04.389Z",
-                  "expirationDate": "2024-11-21T19:15:00.000Z",
-                  "id": "b8565757-5eeb-4a96-90b4-7097a243311f",
-                  ...
-                }
-              },
-              ...
-            }
+      - name: Extract reservation ID
+        id: extract_id
         run: |
-          #!/bin/bash
           echo "Parsing ID from virtual reservation output..."
-
-          # Extract JSON block
-          json_output=$(echo "$output" | sed -n '/{/,/}/p' | jq '.' 2>/dev/null)
-
-          # Debug extracted JSON
-          echo "Extracted JSON: $json_output"
-
-          # Check if JSON is valid
-          if [ -z "$json_output" ] || [ "$json_output" = "null" ]; then
-              echo "Error: No valid JSON found in the output."
-              exit 1
-          fi
-
-          # Parse the ID field
-          id=$(echo "$json_output" | jq -r '.data.data.id // empty')
-
-          # Debug the extracted ID
-          echo "Extracted ID: $id"
-
-          # Validate the extracted ID
-          if [ -z "$id" ]; then
-              echo "Error: Could not extract reservation ID."
-              exit 1
-          fi
-
-          # Save to GitHub environment
-          echo "Saving reservation ID to GitHub environment..."
-          echo "reservation_id=$id" >> "$GITHUB_ENV"
-          echo "Reservation ID saved successfully."
-
-      - name: Debug Environment Variables
-        run: |
-          echo "Checking saved environment variables..."
-          cat $GITHUB_ENV
-
-
+          id=$(echo '${{ steps.virtual.outputs.message }}' | jq -r '.data.id')
       
-        
-
- 
