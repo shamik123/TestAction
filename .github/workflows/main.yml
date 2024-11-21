@@ -31,5 +31,5 @@ jobs:
         id: extract_id
         run: |
           echo "Parsing ID from virtual reservation output..."
-          id=$(echo '${{ steps.virtual.outputs.message }}' | jq -r '.data.id')
+          id=$(${{ steps.virtual.outputs.message }} | jq -r '.data.id')
       
