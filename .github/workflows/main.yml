@@ -19,7 +19,7 @@ jobs:
       - name: Extract reservation ID
         id: extract_id
         run: |
-          id=$(echo '${{ steps.virtual.outputs.message }}' | jq -r '.env')
+          id=$(echo '${{ steps.virtual.outputs.message }}' | jq -r '.data')
           echo "Break"
           echo $id
       
