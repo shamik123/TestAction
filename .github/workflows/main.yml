@@ -19,6 +19,6 @@ jobs:
       - name: Extract reservation ID
         id: extract_id
         run: |
-          id=$(echo '${{ steps.virtual.outputs.message }}')
+          id=$(echo '${{ steps.virtual.outputs.message }}' | jq -r 'data.creatdBy')
           echo $id
       
