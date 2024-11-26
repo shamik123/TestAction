@@ -20,5 +20,6 @@ jobs:
         id: extract_id
         run: |
           id=$(echo '${{ steps.virtual.outputs.message }}' | jq -r '.env')
+          echo "Break"
           echo $id
       
