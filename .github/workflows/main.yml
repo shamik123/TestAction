@@ -21,6 +21,6 @@ jobs:
           echo $id
       - name: show
         run: |
-          echo '${{ steps.extract_id.outputs.id }}'
+          echo ${{ steps.extract_id.outputs.id }}
   
  
