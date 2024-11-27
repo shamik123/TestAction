@@ -35,7 +35,7 @@ jobs:
           cat sample.json 
           jq --arg a "e93977b0-d62f-4207-9ef8-64930d7130b2" '.testSuitesEnvironments[].id = $a' sample.json > update.json
           cat update.json    
-          jq --arg a ${{ env.url }} '.testSuitesEnvironments[].environments[].value = $a' update.json > final.json
+          jq --arg a echo${{ env.url }} '.testSuitesEnvironments[].environments[].value = $a' update.json > final.json
           cat final.json
   
  
