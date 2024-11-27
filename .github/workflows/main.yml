@@ -21,7 +21,7 @@ jobs:
           echo $id
       - name: show
         run: |
-          echo ${steps.extract_id.outputs.id}
+          echo ${{steps.extract_id.outputs.id}}
       - name: setup
         id: setup
         run: |
@@ -31,7 +31,6 @@ jobs:
           cat sample.json 
           jq --arg a "$(params.testSuiteId)" '.testSuitesEnvironments[].id = $a' sample.json > update.json
          jq --arg a "$(params.vlabSSH)" '.testSuitesEnvironments[].environments[].value = $a' update.json > final.json
-         
          echo ""
          echo "Updated sample.json file..."
          cat final.json
