@@ -21,6 +21,6 @@ jobs:
           echo $id
       - name: show
         run: |
-          echo ${GITHUB_OUTPUT.id}
+          echo $GITHUB_OUTPUT
   
  
