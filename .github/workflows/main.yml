@@ -14,18 +14,13 @@ jobs:
         uses: shamik123/ShamikAction@shamiktestaction52
         with:
           studio-cli-command: 'studio-cli vlab virtual reserve --id dcb2335c-a923-4605-a642-5cecff88e450 --hours 1 --var artifact_path=workspace-se/builds/michael-foglia/zcu_102_TEST/2403/vip -a --jq .data'
-      - name: Extract reservation ID
-        id: extract_id
+      - name: Extract reservation details
+        id: extract_details
         run: |
           id=$(echo '${{ steps.virtual.outputs.message }}' | jq -r '.data.id') 
           echo "reservation_id=$id" >> $GITHUB_ENV 
           url=$(echo '${{ steps.virtual.outputs.message }}' | jq -r '.data.url') 
           echo "url=$url" >> $GITHUB_ENV
-      - name: show
-        run: |
-          echo ${{ env.reservation_id }}
-          echo "Break"
-          echo ${{ env.url }}
       - name: setup
         id: setup
         run: |
@@ -37,5 +32,8 @@ jobs:
           cat update.json    
           jq --arg a  "${{ env.url }}" '.testSuitesEnvironments[].environments[].value = $a' update.json > final.json
           cat final.json
-  
- 
+      - name: taf
+        id: taf
+        uses: shamik123/ShamikAction@shamiktestaction52
+        with:
+          studio-cli-command: 'studio-cli taf execution run -p 257185f9-04a7-43b4-8b5c-9503ad10a32e -f final.json'
