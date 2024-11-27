@@ -18,6 +18,7 @@ jobs:
         id: extract_id
         run: |
           echo "{id}={$(echo '${{ steps.virtual.outputs.message }}' | jq -r '.data.id')}" >> "$GITHUB_OUTPUT"
+          echo "Break"
           echo $id
       - name: show
         run: |
