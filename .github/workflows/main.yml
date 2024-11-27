@@ -25,6 +25,7 @@ jobs:
         run: |
           echo ${{ env.reservation_id }}
           echo "Break"
+          echo ${{ env.url }}
       - name: setup
         id: setup
         run: |
