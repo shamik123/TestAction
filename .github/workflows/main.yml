@@ -22,16 +22,5 @@ jobs:
       - name: show
         run: |
           echo '${{ steps.extract_id.outputs.ID }}'
-      - name: setup
-        id: setup
-        run: |
-          jq -n -R '{"testSuitesEnvironments":[{"id": "", "environments": [{"type": 2, "value": ""} ] } ] }' > sample.json
-          echo ""
-          echo "Initial sample.json file..."
-          cat sample.json 
-          jq --arg a "$(params.testSuiteId)" '.testSuitesEnvironments[].id = $a' sample.json > update.json
-         jq --arg a "$(params.vlabSSH)" '.testSuitesEnvironments[].environments[].value = $a' update.json > final.json
-         echo ""
-         echo "Updated sample.json file..."
-         cat final.json
+  
  
