@@ -17,8 +17,11 @@ jobs:
       - name: Extract reservation ID
         id: extract_id
         run: |
-          id=$(echo '${{ steps.virtual.outputs.message }}' | jq -r '.data.id')
+          id=$(echo '${{ steps.virtual.outputs.message }}' | jq -r '.data.id') >> $GITHUB_ENV
           echo $id
+      - name: show
+        run: |
+          echo $GITHUB_ENV.id
       - name: setup
         id: setup
         run: |
@@ -26,11 +29,10 @@ jobs:
           echo ""
           echo "Initial sample.json file..."
           cat sample.json 
-      - name: show
-        run: |
-          cat sample.json
-      - name: taf
-        id: taf
-        uses: shamik123/ShamikAction@shamiktestaction52
-        with:
-          studio-cli-command: 'studio-cli vlab virtual reserve --id dcb2335c-a923-4605-a642-5cecff88e450 --hours 1 --var artifact_path=workspace-se/builds/michael-foglia/zcu_102_TEST/2403/vip -a --jq .data'
+          jq --arg a "$(params.testSuiteId)" '.testSuitesEnvironments[].id = $a' sample.json > update.json
+         jq --arg a "$(params.vlabSSH)" '.testSuitesEnvironments[].environments[].value = $a' update.json > final.json
+         
+         echo ""
+         echo "Updated sample.json file..."
+         cat final.json
+ 
