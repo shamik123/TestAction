@@ -19,6 +19,8 @@ jobs:
         run: |
           id=$(echo '${{ steps.virtual.outputs.message }}' | jq -r '.data.id') 
           echo "reservation_id=$id" >> $GITHUB_ENV 
+          url=$(echo '${{ steps.virtual.outputs.message }}' | jq -r '.data.url') 
+          echo "url=$url" >> $GITHUB_ENV
       - name: show
         run: |
           echo ${{ env.reservation_id }}
