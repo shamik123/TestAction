@@ -20,8 +20,10 @@ jobs:
           id=$(echo '${{ steps.virtual.outputs.message }}' | jq -r '.data.id') >> "$GITHUB_OUTPUT"
           echo "Break"
           echo $id
+          echo "reservation_id=$id" >> $GITHUB_ENV 
       - name: show
         run: |
-          echo ${{ steps.extract_id.outputs.id }}
+          echo ${{ env.reservation_id }}
+              
   
  
