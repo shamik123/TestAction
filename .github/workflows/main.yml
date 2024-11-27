@@ -14,12 +14,18 @@ jobs:
         uses: shamik123/ShamikAction@shamiktestaction52
         with:
           studio-cli-command: 'studio-cli vlab virtual reserve --id dcb2335c-a923-4605-a642-5cecff88e450 --hours 1 --var artifact_path=workspace-se/builds/michael-foglia/zcu_102_TEST/2403/vip -a --jq .data'
-      - name: Show the output message
-        run: echo "${{ steps.virtual.outputs.message }}"
       - name: Extract reservation ID
         id: extract_id
         run: |
           id=$(echo '${{ steps.virtual.outputs.message }}' | jq -r '.data.id')
-          echo "Break"
           echo $id
-      
+      - name: Run
+        id: taf
+        uses: shamik123/ShamikAction@shamiktestaction52
+        run: |
+          jq -n -R '{"testSuitesEnvironments":[{"id": "", "environments": [{"type": 2, "value": ""} ] } ] }' > sample.json
+          echo ""
+          echo "Initial sample.json file..."
+          cat sample.json
+        with:
+          studio-cli-command: 'studio-cli vlab virtual reserve --id dcb2335c-a923-4605-a642-5cecff88e450 --hours 1 --var artifact_path=workspace-se/builds/michael-foglia/zcu_102_TEST/2403/vip -a --jq .data'
