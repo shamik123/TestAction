@@ -23,6 +23,14 @@ jobs:
         run: |
           echo ${{ env.reservation_id }}
           echo "Break"
-              
+      - name: setup
+        id: setup
+        run: |
+          jq -n -R '{"testSuitesEnvironments":[{"id": "", "environments": [{"type": 2, "value": ""} ] } ] }' > sample.json
+          echo ""
+          echo "Initial sample.json file..."
+          cat sample.json 
+          jq --arg a "e93977b0-d62f-4207-9ef8-64930d7130b2" '.testSuitesEnvironments[].id = $a' sample.json > update.json
+          cat update.json    
   
  
