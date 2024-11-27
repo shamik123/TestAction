@@ -17,11 +17,11 @@ jobs:
       - name: Extract reservation ID
         id: extract_id
         run: |
-          id=$(echo '${{ steps.virtual.outputs.message }}' | jq -r '.data.id') >> $GITHUB_OUTPUT
-          echo $id
+          ID=$(echo '${{ steps.virtual.outputs.message }}' | jq -r '.data.id') >> $GITHUB_OUTPUT
+          echo $ID
       - name: show
         run: |
-          echo '${{ steps.extract_id.outputs.id }}'
+          echo '${{ steps.extract_id.outputs.ID }}'
       - name: setup
         id: setup
         run: |
