@@ -1,13 +1,13 @@
 on: [push]
-    inputs:
-      flutter_version:
-        description: 'Framework version'
-        required: true
-        default: '2.5.3'
-      publish_artifacts:
-        description: 'Publish artifacts'
-        required: true
-        default: 'true'
+inputs:
+   flutter_version:
+     description: 'Framework version'
+     required: true
+     default: '2.5.3'
+   publish_artifacts:
+     description: 'Publish artifacts'
+     required: true
+     default: 'true'
 jobs:
   hello_world_job:
     runs-on: self-hosted
