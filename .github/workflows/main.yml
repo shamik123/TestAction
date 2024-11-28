@@ -28,8 +28,8 @@ jobs:
     runs-on: self-hosted
     name: Runs Studio cli
     env: # Environment variables at the job level
-      MY_USER: "shamik.saha@windriver.com"
-      MY_STUDIO: "https://feo-demo.wrstudio.cloud/"
+      MY_USER: ${{ secrets.MY_USER }}
+      MY_STUDIO: ${{ secrets.MY_STUDIO }}
       MY_PW: ${{ secrets.MY_PW }}
     steps:
       - name: reserving virtual target
