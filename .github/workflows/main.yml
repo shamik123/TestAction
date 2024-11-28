@@ -1,36 +1,28 @@
 on: 
  workflow_dispatch:
     inputs:
-      logLevel:
-        description: 'Log level'
+      environement_type:
+        description: 'Environment type'
         required: true
-        default: 'warning'
+        default: '2'
         type: choice
         options:
-          - info
-          - warning
-          - debug
-      print_tags:
-        description: 'True to print to STDOUT'
-        required: true
-        type: boolean
-      tags:
-        description: 'Test scenario tags'
-        required: true
+          - 0
+          - 1
+          - 2
+          - 3
+      target_id:
+        description: target_id'
         type: string
-      environment:
-        description: 'Environment to run tests against'
-        type: environment
-        required: true
-inputs:
-   flutter_version:
-     description: 'Framework version'
-     required: true
-     default: '2.5.3'
-   publish_artifacts:
-     description: 'Publish artifacts'
-     required: true
-     default: 'true'
+        default: 'dcb2335c-a923-4605-a642-5cecff88e450'
+      test_plan:
+        description: 'Test plan id'
+        type: string
+        default: '257185f9-04a7-43b4-8b5c-9503ad10a32e'
+      test_suite:
+        description: 'test suite id'
+        type: string
+        default: 'e93977b0-d62f-4207-9ef8-64930d7130b2'
 jobs:
   hello_world_job:
     runs-on: self-hosted
@@ -44,7 +36,7 @@ jobs:
         id: virtual
         uses: shamik123/ShamikAction@shamiktestaction52
         with:
-          studio-cli-command: 'studio-cli vlab virtual reserve --id dcb2335c-a923-4605-a642-5cecff88e450 --hours 1 --var artifact_path=workspace-se/builds/michael-foglia/zcu_102_TEST/2403/vip -a --jq .data'
+          studio-cli-command: 'studio-cli vlab virtual reserve --id ${{ inputs.target_id }} --hours 1 --var artifact_path=workspace-se/builds/michael-foglia/zcu_102_TEST/2403/vip -a --jq .data'
       - name: Extract reservation details
         id: extract_details
         run: |
@@ -59,7 +51,7 @@ jobs:
           echo ""
           echo "Initial sample.json file..."
           cat sample.json 
-          jq --arg a "e93977b0-d62f-4207-9ef8-64930d7130b2" '.testSuitesEnvironments[].id = $a' sample.json > update.json
+          jq --arg a ${{ inputs.test_suite }} '.testSuitesEnvironments[].id = $a' sample.json > update.json
           cat update.json    
           jq --arg a  "${{ env.url }}" '.testSuitesEnvironments[].environments[].value = $a' update.json > final.json
           cat final.json
@@ -67,4 +59,4 @@ jobs:
         id: taf
         uses: shamik123/ShamikAction@shamiktestaction52
         with:
-          studio-cli-command: 'studio-cli taf execution run -p 257185f9-04a7-43b4-8b5c-9503ad10a32e -f final.json'
+          studio-cli-command: 'studio-cli taf execution run -p ${{ inputs.test_plan }} -f final.json'
